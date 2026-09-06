@@ -1,0 +1,17 @@
+nohup: ignorando entrada
+ * Serving Flask app 'app'
+ * Debug mode: on
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9000
+ * Running on http://192.168.15.164:9000
+Press CTRL+C to quit
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 121-186-246
+192.168.15.164 - - [04/Sep/2026 09:09:42] "GET /?q= HTTP/1.1" 200 -
+192.168.15.164 - - [04/Sep/2026 09:09:46] "GET /?q= HTTP/1.1" 200 -
+192.168.15.164 - - [04/Sep/2026 09:09:46] "GET /?q= HTTP/1.1" 200 -
+192.168.15.164 - - [04/Sep/2026 09:09:49] "GET /?q=trt HTTP/1.1" 200 -
+192.168.15.164 - - [04/Sep/2026 09:09:55] "GET /?q= HTTP/1.1" 200 -
+192.168.15.164 - - [04/Sep/2026 09:10:55] "GET /?q=573734923107 HTTP/1.1" 200 -

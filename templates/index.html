@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta Consolidado</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            margin:20px;
+            background:#f5f5f5;
+        }
+
+        h1{
+            color:#333;
+        }
+
+        .busca{
+            margin-bottom:20px;
+        }
+
+        input[type=text]{
+            width:500px;
+            padding:10px;
+            font-size:16px;
+        }
+
+        button{
+            padding:15px 20px;
+            cursor:pointer;
+            background:#0d6efd;
+            color:white;
+            border:none;
+            border-radius:4px;
+        }
+
+        button:hover{
+            background:#0b5ed7;
+        }
+
+        .contador{
+            margin:15px 0;
+            color:#666;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            font-size:12px;
+        }
+
+        th{
+            background:#0d6efd;
+            color:white;
+            position:sticky;
+            top:0;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:8px;
+            text-align:left;
+            white-space:nowrap;
+        }
+
+        tr:nth-child(even){
+            background:#f8f9fa;
+        }
+
+        .wrapper{
+            overflow:auto;
+            max-height:800px;
+            border:1px solid #ccc;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1>CONSULTA CONTAS</h1>
+
+<form method="GET">
+
+    <div class="busca">
+
+        <input
+            type="text"
+            name="q"
+            placeholder="Digite qualquer informação..."
+            value="{{ termo }}"
+        >
+
+        <button type="submit">
+            Buscar
+        </button>
+
+    </div>
+
+</form>
+
+{% if termo %}
+
+<div class="contador">
+
+    Registros encontrados:
+    <strong>{{ total }}</strong>
+
+</div>
+
+{% endif %}
+
+{% if resultados %}
+
+<div class="wrapper">
+
+<table>
+
+    <thead>
+        <tr>
+            {% for coluna in colunas %}
+            <th>{{ coluna }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for linha in resultados %}
+
+        <tr>
+
+            {% for coluna in colunas %}
+            <td>{{ linha[coluna] }}</td>
+            {% endfor %}
+
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+</div>
+
+{% endif %}
+
+</body>
+</html>

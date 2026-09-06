@@ -1,0 +1,10 @@
+*.pem
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+tfp
+*.tfplan
+
+github-actions
+github-actions.pub
