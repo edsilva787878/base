@@ -105,27 +105,18 @@
             gap: 16px;
         }
 
-        .header-icon {
-            width: 48px;
+        .header-logo {
             height: 48px;
+            width: auto;
+            object-fit: contain;
             border-radius: var(--radius);
-            background: var(--primary-gradient);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 22px;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
         }
 
         .header-title h1 {
             font-size: 24px;
             font-weight: 800;
             letter-spacing: -0.5px;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--gray-900);
         }
 
         .header-title p {
@@ -133,7 +124,6 @@
             color: var(--gray-500);
             font-weight: 400;
             margin-top: 2px;
-            -webkit-text-fill-color: var(--gray-500);
         }
 
         .header-badge {
@@ -537,10 +527,8 @@
         }
 
         @media (max-width: 480px) {
-            .header-icon {
-                width: 40px;
+            .header-logo {
                 height: 40px;
-                font-size: 18px;
             }
 
             .header-title h1 {
@@ -596,7 +584,13 @@
             object-fit: contain;
         }
 
-
+        /* Ajuste para o subtítulo */
+        .header-subtitle {
+            font-size: 13px;
+            color: var(--gray-500);
+            font-weight: 400;
+            margin-top: 2px;
+        }
 
     </style>
 </head>
@@ -604,12 +598,14 @@
 
     <!-- HEADER -->
     <header class="app-header">
-      <div class="header-left">
-    <div class="header-left">
-        <img
-        src="Claro Empresas"
-        class="logo-claro">
-    </div>
+        <div class="header-left">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo da Empresa" class="header-logo">
+            <div class="header-title">
+                <h1>Consulta Contas</h1>
+                <p class="header-subtitle"><i class="fas fa-cloud" style="color: var(--primary);"></i> Multicloud</p>
+            </div>
+        </div>
+        <div>
             <span class="header-badge">
                 <i class="fas fa-database"></i>
                 {{ colunas|length }} colunas
