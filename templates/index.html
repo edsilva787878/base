@@ -3,719 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta Contas - Multicloud</title>
-
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
+    <title>Buscador de CEP</title>
     <style>
-:root {
-    --primary: #DA291C;
-    --primary-dark: #B71C1C;
-    --primary-light: #EF5350;
-
-    --primary-gradient: linear-gradient(
-        135deg,
-        #DA291C 0%,
-        #F44336 100%
-    );
-
-    --success: #10b981;
-    --warning: #f59e0b;
-    --danger: #ef4444;
-
-    --gray-50: #ffffff;
-    --gray-100: #f8f8f8;
-    --gray-200: #e5e5e5;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #333333;
-    --gray-800: #1a1a1a;
-    --gray-900: #2b2b2b;
-
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1),
-              0 1px 2px -1px rgb(0 0 0 / 0.1);
-
-    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1),
-                 0 2px 4px -2px rgb(0 0 0 / 0.1);
-
-    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-                 0 4px 6px -4px rgb(0 0 0 / 0.1);
-
-    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-                 0 8px 10px -6px rgb(0 0 0 / 0.1);
-
-    --radius: 12px;
-}
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            background: var(--gray-50);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--gray-800);
-            padding: 24px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f80303 0%, #b65405 100%);
             min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        /* Scrollbar personalizada */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--gray-100);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--gray-300);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gray-400);
-        }
-
-        /* Header */
-        .app-header {
+        .container {
             background: white;
-            border-radius: var(--radius);
-            padding: 28px 32px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 90%;
+            max-width: 500px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .input-group {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 16px;
-            border: 1px solid rgba(99, 102, 241, 0.08);
+            gap: 10px;
+            margin-bottom: 20px;
         }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .header-logo {
-            height: 80px;
-            width: auto;
-            object-fit: contain;
-            border-radius: var(--radius);
-        }
-
-        .header-title h1 {
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--gray-900);
-        }
-
-        .header-title p {
-            font-size: 13px;
-            color: var(--gray-500);
-            font-weight: 400;
-            margin-top: 2px;
-        }
-
-        .header-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            background: var(--gray-100);
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--gray-600);
-        }
-
-        .header-badge i {
-            color: var(--success);
-        }
-
-        /* Search Box */
-        .search-box {
-            background: white;
-            border-radius: var(--radius);
-            padding: 24px 28px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(99, 102, 241, 0.06);
-            transition: box-shadow 0.2s;
-        }
-
-        .search-box:focus-within {
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary-light);
-        }
-
-        .search-form {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .search-input-wrapper {
+        input {
             flex: 1;
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .search-input-wrapper i {
-            position: absolute;
-            left: 14px;
-            color: var(--gray-400);
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
             font-size: 16px;
         }
-
-        .search-input-wrapper input {
-            width: 100%;
-            padding: 14px 16px 14px 44px;
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.2s;
-            background: var(--gray-50);
-            color: var(--gray-800);
-        }
-
-        .search-input-wrapper input:focus {
-            outline: none;
-            border-color: var(--primary);
-            background: white;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
-
-        .search-input-wrapper input::placeholder {
-            color: var(--gray-400);
-        }
-
-        .btn-search {
-            padding: 14px 32px;
-            background: var(--primary-gradient);
+        button {
+            padding: 12px 30px;
+            background: #667eea;
             color: white;
             border: none;
-            border-radius: var(--radius);
-            font-size: 14px;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
+            border-radius: 5px;
             cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            font-size: 16px;
+            transition: background 0.3s;
         }
-
-        .btn-search:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+        button:hover {
+            background: #764ba2;
         }
-
-        .btn-search:active {
-            transform: translateY(0);
-        }
-
-        .btn-search i {
-            font-size: 15px;
-        }
-
-        .btn-clear {
-            padding: 14px 20px;
-            background: var(--gray-100);
-            color: var(--gray-600);
-            border: 2px solid var(--gray-200);
-            border-radius: var(--radius);
-            font-size: 14px;
-            font-weight: 500;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn-clear:hover {
-            background: var(--gray-200);
-            border-color: var(--gray-300);
-        }
-
-        /* Stats / Result Info */
-        .result-info {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 20px;
-            padding: 0 4px;
-        }
-
-        .result-stats {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .result-stats .count {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--gray-900);
-            letter-spacing: -0.5px;
-        }
-
-        .result-stats .label {
-            font-size: 14px;
-            color: var(--gray-500);
-            font-weight: 400;
-        }
-
-        .result-stats .pill {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            background: var(--primary-gradient);
-            color: white;
-        }
-
-        .result-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .result-actions button {
-            padding: 8px 16px;
-            border: 1px solid var(--gray-200);
-            border-radius: 8px;
-            background: white;
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--gray-600);
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .result-actions button:hover {
-            background: var(--gray-50);
-            border-color: var(--gray-300);
-        }
-
-        /* Table Container */
-        .table-container {
-            background: white;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(99, 102, 241, 0.06);
-        }
-
-        .table-scroll {
-            overflow: auto;
-            max-height: 700px;
-        }
-
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            min-width: 2200px;
-            font-size: 12.5px;
-        }
-
-        thead {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        thead tr {
-            background: #DA291C;
-        }
-
-        th {
-            padding: 14px 16px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: rgba(255, 255, 255, 0.85);
-            border-bottom: 2px solid rgba(255, 255, 255, 0.08);
-            white-space: nowrap;
-            position: relative;
-            background: var(--gray-900);
-        }
-
-        th i {
-            margin-right: 6px;
-            font-size: 10px;
+        button:disabled {
             opacity: 0.6;
+            cursor: not-allowed;
         }
-
-        td {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--gray-100);
-            white-space: nowrap;
-            color: var(--gray-700);
-            font-size: 12.5px;
-            transition: background 0.15s;
+        #resultado {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
         }
-
-        tr:hover td {
-            background: rgba(218,41,28,0.08);
+        #resultado.sucesso {
+            display: block;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
         }
-
-        tr:nth-child(even) td {
-            background: var(--gray-50);
+        #resultado.erro {
+            display: block;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
         }
-
-        tr:nth-child(even):hover td {
-            background: rgba(99, 102, 241, 0.06);
+        #resultado h3 {
+            margin-bottom: 10px;
         }
-
-        /* Badges nas células para melhor visualização */
-        .cell-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 500;
-            background: var(--gray-100);
-            color: var(--gray-600);
-        }
-
-        .cell-badge.success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .cell-badge.warning {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .cell-badge.danger {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .cell-badge.info {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        .cell-badge.purple {
-            background: #ede9fe;
-            color: #5b21b6;
-        }
-
-        .cell-highlight {
-            background: rgba(99, 102, 241, 0.08);
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-weight: 500;
-        }
-
-        /* Empty State */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 40px;
-            text-align: center;
-        }
-
-        .empty-state i {
-            font-size: 56px;
-            color: var(--gray-300);
-            margin-bottom: 16px;
-        }
-
-        .empty-state h3 {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--gray-700);
-            margin-bottom: 6px;
-        }
-
-        .empty-state p {
-            color: var(--gray-500);
+        #resultado p {
+            margin: 5px 0;
             font-size: 14px;
         }
-
-        /* Loading skeleton / animação */
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .loading {
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
         }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            body {
-                padding: 12px;
-            }
-
-            .app-header {
-                padding: 20px;
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-
-            .header-left {
-                justify-content: center;
-            }
-
-            .header-title h1 {
-                font-size: 20px;
-            }
-
-            .search-form {
-                flex-wrap: wrap;
-            }
-
-            .search-input-wrapper {
-                flex: 1 1 100%;
-            }
-
-            .btn-search,
-            .btn-clear {
-                flex: 1;
-                justify-content: center;
-            }
-
-            .result-info {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-
-            .result-stats {
-                justify-content: center;
-            }
-
-            .result-actions {
-                justify-content: center;
-            }
-
-            .table-scroll {
-                max-height: 500px;
-            }
-
-            td, th {
-                padding: 10px 12px;
-                font-size: 11px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header-logo {
-                height: 40px;
-            }
-
-            .header-title h1 {
-                font-size: 17px;
-            }
-
-            .search-box {
-                padding: 16px;
-            }
-
-            .search-input-wrapper input {
-                padding: 12px 12px 12px 38px;
-                font-size: 13px;
-            }
-
-            .btn-search,
-            .btn-clear {
-                padding: 12px 16px;
-                font-size: 13px;
-            }
-
-            .result-stats .count {
-                font-size: 22px;
-            }
-        }
-
-        /* Tooltip para células truncadas */
-        td[title] {
-            cursor: help;
-        }
-
-        /* Estilo para o scroll da tabela */
-        .table-scroll::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        .table-scroll::-webkit-scrollbar-track {
-            background: var(--gray-50);
-        }
-
-        .table-scroll::-webkit-scrollbar-thumb {
-            background: var(--gray-300);
-            border-radius: 4px;
-        }
-
-        .table-scroll::-webkit-scrollbar-thumb:hover {
-            background: var(--gray-400);
-        }
-        .logo-claro {
-            height: 60px;
-            width: auto;
-            object-fit: contain;
-        }
-
-        /* Ajuste para o subtítulo */
-        .header-subtitle {
-            font-size: 13px;
-            color: var(--gray-500);
-            font-weight: 400;
-            margin-top: 2px;
-        }
-
     </style>
 </head>
 <body>
-
-    <!-- HEADER -->
-    <header class="app-header">
-        <div class="header-left">
-            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo da Empresa" class="header-logo">
-            <div class="header-title">
-            </div>
+    <div class="container">
+        <h1>🔍 Buscador de CEP</h1>
+        <div class="input-group">
+            <input type="text" id="cep" placeholder="Digite o CEP (ex: 01001-000)" maxlength="9">
+            <button id="buscarBtn">Buscar</button>
         </div>
-        <div>
-            <span class="header-badge">
-                <i class="fas fa-database"></i>
-                {{ colunas|length }} colunas
-            </span>
-        </div>
-        
-    </header>
-
-    <!-- SEARCH BOX -->
-    <div class="search-box">
-        <form method="GET" class="search-form">
-            <div class="search-input-wrapper">
-                <i class="fas fa-search"></i>
-                <input
-                    type="text"
-                    name="q"
-                    placeholder="Pesquise por cliente, conta, ID, assinatura ou qualquer valor..."
-                    value="{{ termo }}"
-                    autofocus
-                >
-            </div>
-            <button type="submit" class="btn-search">
-                <i class="fas fa-search"></i> Buscar
-            </button>
-            {% if termo %}
-            <a href="{{ url_for('index') }}" class="btn-clear">
-                <i class="fas fa-times"></i> Limpar
-            </a>
-            {% endif %}
-        </form>
+        <div id="resultado"></div>
+        <div id="loading" class="loading" style="display:none;">⏳ Buscando...</div>
     </div>
 
-    <!-- RESULT INFO -->
-    {% if termo %}
-    <div class="result-info">
-        <div class="result-stats">
-            <span class="count">{{ total }}</span>
-            <span class="label">registro(s) encontrado(s)</span>
-            <span class="pill">
-                <i class="fas fa-filter"></i> "{{ termo }}"
-            </span>
-        </div>
-        <div class="result-actions">
-            <button onclick="window.scrollTo({top:0,behavior:'smooth'})">
-                <i class="fas fa-arrow-up"></i> Topo
-            </button>
-            <button onclick="window.print()">
-                <i class="fas fa-print"></i> Imprimir
-            </button>
-        </div>
-    </div>
-    {% endif %}
+    <script>
+        document.getElementById('buscarBtn').addEventListener('click', buscarCEP);
+        document.getElementById('cep').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') buscarCEP();
+        });
 
-    <!-- TABLE -->
-    {% if resultados %}
+        // Formata o CEP enquanto digita
+        document.getElementById('cep').addEventListener('input', function(e) {
+            let cep = this.value.replace(/\D/g, '');
+            if (cep.length > 5) {
+                cep = cep.substring(0, 5) + '-' + cep.substring(5, 8);
+            }
+            this.value = cep;
+        });
 
-    <div class="table-container">
-        <div class="table-scroll">
-            <table>
-                <thead>
-                    <tr>
-                        {% for coluna in colunas %}
-                        <th>
-                            <i class="fas fa-columns"></i>
-                            {{ coluna }}
-                        </th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for linha in resultados %}
-                    <tr>
-                        {% for coluna in colunas %}
-                        <td title="{{ linha[coluna] }}">
-                            {% set valor = linha[coluna] %}
-                            {% if valor|length > 50 %}
-                                {{ valor[:50] }}…
-                            {% else %}
-                                {{ valor }}
-                            {% endif %}
-                        </td>
-                        {% endfor %}
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+        async function buscarCEP() {
+            const cepInput = document.getElementById('cep');
+            const resultado = document.getElementById('resultado');
+            const loading = document.getElementById('loading');
+            const btn = document.getElementById('buscarBtn');
+            
+            let cep = cepInput.value.replace(/\D/g, '');
+            
+            if (cep.length !== 8) {
+                resultado.className = 'erro';
+                resultado.innerHTML = '<h3>⚠️ Erro</h3><p>Digite um CEP válido com 8 dígitos.</p>';
+                resultado.style.display = 'block';
+                return;
+            }
 
-    {% else %}
+            // Mostra loading
+            loading.style.display = 'block';
+            btn.disabled = true;
+            resultado.style.display = 'none';
 
-        {% if termo %}
-        <div class="table-container">
-            <div class="empty-state">
-                <i class="fas fa-inbox"></i>
-                <h3>Nenhum registro encontrado</h3>
-                <p>Tente usar termos diferentes ou verifique a ortografia.</p>
-                <br>
-                <a href="{{ url_for('index') }}" class="btn-search" style="display:inline-flex;text-decoration:none;padding:10px 24px;">
-                    <i class="fas fa-arrow-left"></i> Voltar
-                </a>
-            </div>
-        </div>
-        {% endif %}
+            try {
+                const response = await fetch('/buscar-cep', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ cep: cep })
+                });
 
-    {% endif %}
+                const data = await response.json();
 
-    <!-- FOOTER -->
-    <div style="text-align:center;margin-top:24px;font-size:12px;color:var(--gray-400);">
-        <i class="fas fa-circle" style="font-size:6px;vertical-align:middle;margin-right:6px;color:var(--success);"></i>
-        Sistema de Consulta Multicloud · {{ colunas|length }} colunas · {% if termo %}{{ total }} resultados para "{{ termo }}"{% else %}Aguardando pesquisa{% endif %}
-    </div>
-
+                if (response.ok) {
+                    resultado.className = 'sucesso';
+                    resultado.innerHTML = `
+                        <h3>✅ Endereço encontrado</h3>
+                        <p><strong>CEP:</strong> ${data.cep}</p>
+                        <p><strong>Logradouro:</strong> ${data.logradouro}</p>
+                        <p><strong>Bairro:</strong> ${data.bairro}</p>
+                        <p><strong>Cidade:</strong> ${data.cidade}</p>
+                        <p><strong>Estado:</strong> ${data.estado}</p>
+                        <hr>
+                        <p><strong>Endereço completo:</strong></p>
+                        <p>${data.completo}</p>
+                    `;
+                } else {
+                    resultado.className = 'erro';
+                    resultado.innerHTML = `<h3>⚠️ Erro</h3><p>${data.erro || 'Erro ao buscar o CEP'}</p>`;
+                }
+                resultado.style.display = 'block';
+            } catch (error) {
+                resultado.className = 'erro';
+                resultado.innerHTML = `<h3>⚠️ Erro</h3><p>Erro de conexão. Tente novamente.</p>`;
+                resultado.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+                btn.disabled = false;
+            }
+        }
+    </script>
 </body>
 </html>
